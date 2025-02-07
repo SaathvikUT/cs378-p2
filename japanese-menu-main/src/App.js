@@ -1,92 +1,61 @@
 import './App.css';
 import MenuItem from './components/MenuItem';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-// import 'bootstrap/dist/css/bootstrap.min.css'; // This imports bootstrap css styles. You can use bootstrap or your own classes by using the className attribute in your elements.
-
-// Menu data. An array of objects where each object represents a menu item. Each menu item has an id, title, description, image name, and price.
-// You can use the image name to get the image from the images folder.
+// Menu data
 const menuItems = [
   {
     id: 1,
-    title: 'Gyoza',
-    description: 'Japanese dumplings',
-    imageName: 'gyoza.png',
-    price: 5.99,
+    title: 'Pasta Marinara',
+    description: 'Homemade penne pasta with marinara sauce.',
+    image: 'https://assets.epicurious.com/photos/5988e3458e3ab375fe3c0caf/1:1/w_3607,h_3607,c_limit/How-to-Make-Chicken-Alfredo-Pasta-hero-02082017.jpg',
+    price: 10.25
   },
   {
     id: 2,
-    title: 'Sushi',
-    description: 'Japanese rice rolls',
-    imageName: 'sushi.png',
-    price: 6.99,
+    title: 'House Salad',
+    description: 'Mixed greens with onions, tomatoes, and cheese.',
+    image: 'https://www.peelwithzeal.com/wp-content/uploads/2023/01/house-salad-recipe.jpg',
+    price: 6.95
   },
   {
     id: 3,
-    title: 'Ramen',
-    description: 'Japanese noodle soup',
-    imageName: 'ramen.png',
-    price: 7.99,
+    title: 'Margarita Pizza',
+    description: 'Pizza crust with tomatoes, basil, and cheese.',
+    image: 'https://www.abeautifulplate.com/wp-content/uploads/2015/08/the-best-homemade-margherita-pizza-1-4-500x500.jpg',
+    price: 9.25
   },
   {
     id: 4,
-    title: 'Matcha Cake',
-    description: 'Japanese green tea cake',
-    imageName: 'matcha-cake.png',
-    price: 4.99,
-  },
-  {
-    id: 5,
-    title: 'Mochi',
-    description: 'Japanese rice cake',
-    imageName: 'mochi.png',
-    price: 3.99,
-  },
-  {
-    id: 6,
-    title: 'Yakitori',
-    description: 'Japanese skewered chicken',
-    imageName: 'yakitori.png',
-    price: 2.99,
-  },
-  {
-    id: 7,
-    title: 'Takoyaki',
-    description: 'Japanese octopus balls',
-    imageName: 'takoyaki.png',
-    price: 5.99,
-  },
-  {
-    id: 8,
-    title: 'Sashimi',
-    description: 'Japanese raw fish',
-    imageName: 'sashimi.png',
-    price: 8.99,
-  },
-  {
-    id: 9,
-    title: 'Okonomiyaki',
-    description: 'Japanese savory pancake',
-    imageName: 'okonomiyaki.png',
-    price: 6.99,
-  },
-  {
-    id: 10,
-    title: 'Katsu Curry',
-    description: 'Japanese curry with fried pork',
-    imageName: 'katsu-curry.png',
-    price: 9.99,
+    title: 'French Fries',
+    description: 'Crispy fried potatoes served with ketchup and ranch.',
+    image: 'https://www.recipetineats.com/tachyon/2022/09/Crispy-Fries_8.jpg',
+    price: 4.25
   }
 ];
 
-
 function App() {
   return (
-    <div>
-      <h1>Menu</h1>
-      <div className="menu">
-        {/* Display menu items dynamicaly here by iterating over the provided menuItems */}
-        <MenuItem title={menuItems[0].title} /> {/* Example for how to use a component */}
+    <div className="container">
+      <div className="container my-5 text-center">
+        <img 
+          src="https://www.oscampuscafe.com/wp-content/uploads/2019/12/ut-campus-cafe-schema.png" 
+          alt="Banner Image" 
+          className="img-fluid mb-3 rounded small-image" 
+        />
+        <p className="text-muted fancy-text">Delicious, From-Scratch Recipes Close at Hand</p>
+        <h3 className="text-success">The Fresh Choice of UT!</h3>
       </div>
+
+      {menuItems.map(item => (
+        <MenuItem 
+          key={item.id}
+          title={item.title}
+          description={item.description}
+          price={item.price}
+          image={item.image}
+        />
+      ))}
     </div>
   );
 }

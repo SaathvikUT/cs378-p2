@@ -21,6 +21,7 @@ function MenuItem({ title, description, price, image }) {
       </div>
     );
   }
+
   
 
 

@@ -35,6 +35,63 @@ const menuItems = [
 ];
 
 function App() {
+
+  const [cartItems, setCartItems] = useState(
+    menuItems.reduce((acc, item) => ({
+      ...acc,
+      [item.id]: 0
+    }), {})
+  );
+
+  const calculateTotal = () => {
+    return Object.entries(cartItems).reduce((total, [itemId, quantity]) => {
+      const item = menuItems.find(item => item.id === parseInt(itemId));
+      return total + (item.price * quantity);
+    }, 0);
+  };
+
+  const addToCart = (itemId) => {
+    setCartItems(prev => ({
+      ...prev,
+      [itemId]: prev[itemId] + 1
+    }));
+  };
+
+  const removeFromCart = (itemId) => {
+    if (cartItems[itemId] > 0) {
+      setCartItems(prev => ({
+        ...prev,
+        [itemId]: prev[itemId] - 1
+      }));
+    }
+  };
+
+  const clearCart = () => {
+    setCartItems(
+      menuItems.reduce((acc, item) => ({
+        ...acc,
+        [item.id]: 0
+      }), {})
+    );
+  };
+
+  const handleOrder = () => {
+    const orderItems = Object.entries(cartItems)
+      .filter(([_, quantity]) => quantity > 0)
+      .map(([itemId, quantity]) => {
+        const item = menuItems.find(item => item.id === parseInt(itemId));
+        return `${item.title}: ${quantity}`;
+      });
+
+    if (orderItems.length === 0) {
+      alert('No items in cart');
+    } else {
+      alert(`Order placed!\n\nOrder details:\n${orderItems.join('\n')}`);
+    }
+  };
+
+
+
   return (
     <div className="container">
       <div className="container my-5 text-center">
@@ -54,8 +111,27 @@ function App() {
           description={item.description}
           price={item.price}
           image={item.image}
+          quantity={cartItems[item.id]}
+          onAdd={() => addToCart(item.id)}
+          onRemove={() => removeFromCart(item.id)}
         />
       ))}
+
+      <div className="text-center mt-4">
+        <h4>Subtotal: ${calculateTotal().toFixed(2)}</h4>
+        <button 
+          className="btn btn-danger m-2"
+          onClick={clearCart}
+        >
+          Clear All
+        </button>
+        <button 
+          className="btn btn-success m-2"
+          onClick={handleOrder}
+        >
+          Order
+        </button>
+      </div>
     </div>
   );
 }
